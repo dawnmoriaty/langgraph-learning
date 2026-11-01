@@ -1,0 +1,21 @@
+# Core dependencies
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+langgraph==0.2.45
+langchain==0.3.7
+langchain-openai==0.2.8
+langchain-anthropic==0.2.4
+langchain-google-genai==2.0.4
+langchain-core==0.3.15
+python-dotenv==1.0.0
+pydantic==2.9.2
+pydantic-settings==2.5.2
+
+# Optional - nếu muốn dùng database
+# sqlalchemy==2.0.35
+# alembic==1.13.3
+
+# Development
+pytest==8.3.3
+black==24.10.0
+ruff==0.6.9
