@@ -27,7 +27,7 @@ async def health_check(
 async def detailed_health(
     service: HealthService = Depends(get_health_service)
 ) -> Dict[str, Any]:
-    Detailed health check với system info
+    Detailed health check with system info
     
     Returns:
         System status và configurations
@@ -38,12 +38,12 @@ async def detailed_health(
 async def integrations_health(
     service: HealthService = Depends(get_health_service)
 ) -> Dict[str, Any]:
-    Check health của LLM integrations
+    Check health of LLM integrations
     
-    Thực hiện LLM calls thật để test API keys
+    Execute LLM calls thật để test API keys
     
     Returns:
-        Status của từng LLM provider
+        Status of each LLM provider
     result = await service.check_integrations()
     return success_response(data=result)
 
@@ -54,10 +54,10 @@ async def readiness_check(
     Readiness check - System có sẵn sàng serve requests không?
     
     Returns:
-        200 nếu ready, 503 nếu not ready
+        200 if ready, 503 if not ready
     result = await service.readiness_check()
     
-    # Nếu không ready, return 503
+    # Nếu not ready, return 503
     if not result.get("ready", False):
         from fastapi import status, HTTPException
         raise HTTPException(

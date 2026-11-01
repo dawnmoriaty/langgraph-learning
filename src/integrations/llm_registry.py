@@ -69,7 +69,7 @@ class ProviderConfig:
                 **self.kwargs
             )
         else:
-            raise ValueError(f"Provider không hỗ trợ: {self.provider}")
+            raise ValueError(f"Provider not hỗ trợ: {self.provider}")
 
 class LLMRegistry:
     """Registry managing multiple LLM providers with automatic fallback."""
@@ -121,7 +121,7 @@ class LLMRegistry:
         ]
     
     def get_llm(self, name: Optional[str] = None) -> BaseChatModel:
-        Lấy LLM instance
+        Get LLM instance
         
         Args:
             name: Tên provider (None = dùng primary)
@@ -130,20 +130,20 @@ class LLMRegistry:
             LLM instance
             
         Raises:
-            ValueError: Nếu provider không tồn tại hoặc không available
+            ValueError: Nếu provider not tồn tại or not available
         target_name = name or self._primary
         
         if not target_name:
-            raise ValueError("Không có provider nào được đăng ký!")
+            raise ValueError("No providers registered")
         
         config = self._providers.get(target_name)
         if not config:
-            raise ValueError(f"Provider '{target_name}' không tồn tại!")
+            raise ValueError(f"Provider '{target_name}' not found")
         
         if not config.is_available():
             raise ValueError(
-                f"Provider '{target_name}' không có API key! "
-                f"Hãy set {config.provider.value.upper()}_API_KEY"
+                f"Provider '{target_name}' has no API key "
+                f"Set {config.provider.value.upper()}_API_KEY"
             )
         
         logger.info(f"Creating LLM instance: {target_name} ({config.model})")
@@ -153,30 +153,30 @@ class LLMRegistry:
         self,
         preferred_order: Optional[List[str]] = None
     ) -> BaseChatModel:
-        Lấy LLM với automatic fallback
+        Get LLM with automatic fallback
         
         Args:
-            preferred_order: Thứ tự ưu tiên (None = dùng primary rồi bất kỳ)
+            preferred_order: Thứ tự ưu tiên (None = dùng primary then bất kỳ)
             
         Returns:
             LLM instance đầu tiên available
             
         Raises:
-            ValueError: Nếu không có provider nào available
-        # Nếu không có preferred order, dùng primary rồi tất cả
+            ValueError: Nếu no provider available
+        # Nếu no preferred order, dùng primary then tất cả
         if preferred_order is None:
             if self._primary:
                 preferred_order = [self._primary]
             else:
                 preferred_order = []
             
-            # Thêm tất cả providers khác
+            # Thêm all providers khác
             preferred_order.extend([
                 name for name in self._providers.keys()
                 if name not in preferred_order
             ])
         
-        # Thử từng provider theo thứ tự
+        # Thử each provider theo thứ tự
         for name in preferred_order:
             config = self._providers.get(name)
             
@@ -187,26 +187,26 @@ class LLMRegistry:
                 return config.create_llm()
             elif config:
                 logger.warning(
-                    f"  Provider '{name}' không có API key, skip..."
+                    f"  Provider '{name}' no API key, skip..."
                 )
             else:
                 logger.warning(
-                    f"  Provider '{name}' không tồn tại, skip..."
+                    f"  Provider '{name}' not tồn tại, skip..."
                 )
         
-        # Không có provider nào available
+        # No provider available
         available = self.list_available_providers()
         if available:
-            # Có providers nhưng không trong preferred list
+            # Have providers but not in preferred list
             logger.warning(
-                f"Không có provider nào trong preferred list available. "
-                f"Dùng provider đầu tiên: {available[0]}"
+                f"No providers in preferred list available. "
+                f"Use provider đầu tiên: {available[0]}"
             )
             return self.get_llm(available[0])
         else:
             raise ValueError(
-                "Không có provider nào available! "
-                "Hãy set ít nhất một API key: "
+                "No provider available! "
+                "Set at least one API key: "
                 "OPENAI_API_KEY, ANTHROPIC_API_KEY, GOOGLE_API_KEY"
             )
 
@@ -272,7 +272,7 @@ def initialize_llm_registry(
                 temperature=default_temperature,
                 max_tokens=default_max_tokens
             ),
-            primary=not openai_key  # Primary nếu OpenAI không có
+            primary=not openai_key  # Primary if OpenAI no
         )
     
     # Register Google

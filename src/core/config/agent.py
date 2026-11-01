@@ -7,13 +7,13 @@ class AgentConfig(BaseSettings):
     LangGraph agent configuration
     
     # Agent Behavior
-    AGENT_MAX_STEPS: int = 10  # Max iterations trong agent loop
-    AGENT_MAX_TOOL_CALLS: int = 5  # Max tool calls trong 1 turn
-    AGENT_TIMEOUT_SECONDS: int = 60  # Timeout cho toàn bộ agent execution
+    AGENT_MAX_STEPS: int = 10  # Max iterations in agent loop
+    AGENT_MAX_TOOL_CALLS: int = 5  # Max tool calls in 1 turn
+    AGENT_TIMEOUT_SECONDS: int = 60  # Timeout for entire agent execution
     
     # Tool Settings
-    TOOL_TIMEOUT_SECONDS: int = 10  # Timeout cho mỗi tool call
-    TOOL_MAX_RETRIES: int = 2  # Retry khi tool fails
+    TOOL_TIMEOUT_SECONDS: int = 10  # Timeout for each tool call
+    TOOL_MAX_RETRIES: int = 2  # Retry when tool fails
     
     # Guardrails
     INPUT_GUARD_ENABLED: bool = True  # Enable input validation

@@ -1,4 +1,4 @@
-Health Service - Business logic cho health checks
+Health Service - Business logic for health checks
 from typing import Dict, Any
 import time
 
@@ -6,7 +6,7 @@ from src.core.config import get_settings
 from src.integrations import get_llm_registry, IntegrationHealthChecker
 
 class HealthService:
-    Service layer cho health checks
+    Service layer for health checks
     
     Separation of concerns:
     - Router chỉ handle HTTP
@@ -20,7 +20,7 @@ class HealthService:
         Basic health check - chỉ check app đang chạy
         
         Returns:
-            Dict với basic status
+            Dict with basic status
         return {
             "status": "healthy",
             "version": self.settings.app.APP_VERSION,
@@ -29,14 +29,14 @@ class HealthService:
         }
     
     def detailed_health(self) -> Dict[str, Any]:
-        Detailed health với system info
+        Detailed health with system info
         
         Returns:
-            Dict với detailed system info
+            Dict with detailed system info
         # Get config summary
         config_summary = self.settings.summary()
         
-        # Add warnings nếu có
+        # Add warnings if có
         warnings = self.settings.validate()
         
         return {
@@ -49,12 +49,12 @@ class HealthService:
         }
     
     async def check_integrations(self) -> Dict[str, Any]:
-        Check health của LLM integrations
+        Check health of LLM integrations
         
-        Thực hiện LLM calls thật để test
+        Execute LLM calls thật để test
         
         Returns:
-            Dict với integration status
+            Dict with integration status
         try:
             registry = get_llm_registry()
             checker = IntegrationHealthChecker(timeout=10.0)
@@ -78,11 +78,11 @@ class HealthService:
         Readiness check - system có sẵn sàng không?
         
         Checks:
-        - Config đã load
-        - Có ít nhất 1 LLM provider healthy
+        - Config load
+        - Have ít nhất 1 LLM provider healthy
         
         Returns:
-            Dict với readiness status
+            Dict with readiness status
         checks = {
             "config_loaded": False,
             "llm_providers_available": False,
@@ -109,7 +109,7 @@ class HealthService:
         except Exception:
             pass
         
-        # Overall ready nếu tất cả checks pass
+        # Overall ready if all checks pass
         ready = all(checks.values())
         
         return {

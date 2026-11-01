@@ -12,7 +12,7 @@ from .responses import error_response
 logger = logging.getLogger(__name__)
 
 async def app_error_handler(request: Request, exc: AppError) -> JSONResponse:
-    Handler cho AppError và subclasses
+    Handler for AppError subclasses
     
     Convert AppError sang API response envelope
     logger.warning(
@@ -38,7 +38,7 @@ async def validation_error_handler(
     request: Request,
     exc: RequestValidationError
 ) -> JSONResponse:
-    Handler cho Pydantic validation errors
+    Handler for Pydantic validation errors
     
     Convert validation errors sang readable format
     errors = []
@@ -71,9 +71,9 @@ async def generic_error_handler(
     request: Request,
     exc: Exception
 ) -> JSONResponse:
-    Handler cho tất cả exceptions khác
+    Handler for all exceptions khác
     
-    Catch-all handler cho unexpected errors
+    Catch-all handler for unexpected errors
     logger.error(
         f"Unhandled exception: {type(exc).__name__} - {str(exc)}",
         exc_info=exc,
@@ -104,7 +104,7 @@ async def generic_error_handler(
     )
 
 def register_exception_handlers(app) -> None:
-    Register tất cả exception handlers vào FastAPI app
+    Register all exception handlers to FastAPI app
     
     Usage:
         from fastapi import FastAPI

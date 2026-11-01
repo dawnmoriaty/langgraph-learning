@@ -6,12 +6,12 @@ from typing import Optional
 class SecurityConfig(BaseSettings):
     Security-related configuration
     
-    # JWT (cho future authentication)
+    # JWT (for future authentication)
     JWT_SECRET: Optional[str] = None
     JWT_ALGORITHM: str = "HS256"
     JWT_EXPIRE_MINUTES: int = 60 * 24  # 24 hours
     
-    # API Keys (cho future API protection)
+    # API Keys (for future API protection)
     API_KEY_ENABLED: bool = False
     API_KEY_HEADER: str = "X-API-Key"
     
@@ -20,7 +20,7 @@ class SecurityConfig(BaseSettings):
     RATE_LIMIT_PER_MINUTE: int = 60
     
     # Input Validation
-    MAX_INPUT_LENGTH: int = 10000  # Max chars trong user input
+    MAX_INPUT_LENGTH: int = 10000  # Max chars in user input
     MAX_FILE_SIZE_MB: int = 10  # Max file upload size
     
     model_config = SettingsConfigDict(

@@ -44,10 +44,10 @@ class AppError(Exception):
 class ValidationError(AppError):
     Validation error - 400 Bad Request
     
-    Use when: User input không hợp lệ
+    Use when: User input not hợp lệ
     
     Examples:
-        raise ValidationError("Email không hợp lệ")
+        raise ValidationError("Email not hợp lệ")
         raise ValidationError(
             "Validation failed",
             details={"field": "email", "error": "Invalid format"}
@@ -68,7 +68,7 @@ class ValidationError(AppError):
 class UnauthorizedError(AppError):
     Unauthorized error - 401
     
-    Use when: User chưa đăng nhập hoặc token invalid
+    Use when: User chưa đăng nhập or token invalid
     
     Examples:
         raise UnauthorizedError("Token expired")
@@ -89,10 +89,10 @@ class UnauthorizedError(AppError):
 class ForbiddenError(AppError):
     Forbidden error - 403
     
-    Use when: User authenticated nhưng không có permission
+    Use when: User authenticated but no permission
     
     Examples:
-        raise ForbiddenError("Bạn không có quyền xóa user này")
+        raise ForbiddenError("You no quyền xóa user này")
         raise ForbiddenError("Admin only")
     
     def __init__(
@@ -110,7 +110,7 @@ class ForbiddenError(AppError):
 class NotFoundError(AppError):
     Not found error - 404
     
-    Use when: Resource không tồn tại
+    Use when: Resource not tồn tại
     
     Examples:
         raise NotFoundError("User not found")
@@ -134,7 +134,7 @@ class NotFoundError(AppError):
 class ConflictError(AppError):
     Conflict error - 409
     
-    Use when: Resource đã tồn tại hoặc có conflict
+    Use when: Resource tồn tại or có conflict
     
     Examples:
         raise ConflictError("Email already exists")
@@ -158,7 +158,7 @@ class ConflictError(AppError):
 class InternalServerError(AppError):
     Internal server error - 500
     
-    Use when: Lỗi không mong đợi
+    Use when: Lỗi not mong đợi
     
     Examples:
         raise InternalServerError("Database connection failed")
@@ -182,7 +182,7 @@ class InternalServerError(AppError):
 class AgentError(AppError):
     Agent execution error
     
-    Use when: Agent fails trong quá trình execution
+    Use when: Agent fails in quá trình execution
     
     Examples:
         raise AgentError("Agent timeout")

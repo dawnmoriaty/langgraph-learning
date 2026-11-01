@@ -10,7 +10,7 @@ from .llm_registry import get_llm_registry
 logger = logging.getLogger(__name__)
 
 class IntegrationHealthChecker:
-    Health checker cho integrations
+    Health checker for integrations
     
     Usage:
         checker = IntegrationHealthChecker()
@@ -21,14 +21,14 @@ class IntegrationHealthChecker:
     
     def __init__(self, timeout: float = 5.0):
         Args:
-            timeout: Timeout cho mỗi health check (seconds)
+            timeout: Timeout for each health check (seconds)
         self.timeout = timeout
     
     async def check_provider(
         self,
         provider_name: str
     ) -> Dict[str, Any]:
-        Check health của một provider
+        Check health of một provider
         
         Args:
             provider_name: Tên provider
@@ -47,7 +47,7 @@ class IntegrationHealthChecker:
         }
         
         try:
-            # Lấy config
+            # Get config
             config = registry.get_provider_config(provider_name)
             
             if not config:
@@ -58,7 +58,7 @@ class IntegrationHealthChecker:
             # Check API key
             if not config.is_available():
                 result["status"] = "no_api_key"
-                result["error"] = f"API key cho {config.provider.value} không có"
+                result["error"] = f"API key for {config.provider.value} no"
                 return result
             
             result["available"] = True
@@ -67,7 +67,7 @@ class IntegrationHealthChecker:
                 "model": config.model
             }
             
-            # Test với LLM call thật
+            # Test with LLM call thật
             start_time = time.time()
             
             try:
@@ -110,7 +110,7 @@ class IntegrationHealthChecker:
         return result
     
     async def check_all(self) -> Dict[str, Any]:
-        Check health của tất cả providers
+        Check health of all providers
         
         Returns:
             Dict chứa tổng hợp kết quả
@@ -171,7 +171,7 @@ class IntegrationHealthChecker:
         try:
             start_time = time.time()
             
-            # Get LLM với fallback
+            # Get LLM with fallback
             llm = registry.get_llm_with_fallback(preferred_order)
             
             # Test call
@@ -202,10 +202,10 @@ class IntegrationHealthChecker:
 # Convenience functions
 
 async def quick_health_check() -> bool:
-    Quick health check - return True nếu có ít nhất 1 provider healthy
+    Quick health check - return True if có ít nhất 1 provider healthy
     
     Returns:
-        True nếu có provider healthy, False nếu không
+        True if có provider healthy, False if không
     try:
         checker = IntegrationHealthChecker(timeout=3.0)
         results = await checker.check_all()
@@ -215,7 +215,7 @@ async def quick_health_check() -> bool:
         return False
 
 async def get_health_summary() -> Dict[str, Any]:
-    Lấy health summary của tất cả providers
+    Get health summary of all providers
     
     Returns:
         Dict chứa health status

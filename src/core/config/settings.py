@@ -1,4 +1,4 @@
-Settings - Tổng hợp tất cả configs
+Settings - Tổng hợp all configs
 from typing import Optional
 from .app import AppConfig, get_app_config
 from .llm import LLMConfig, get_llm_config
@@ -6,7 +6,7 @@ from .agent import AgentConfig, get_agent_config
 from .security import SecurityConfig, get_security_config
 
 class Settings:
-    Unified settings object chứa tất cả configs
+    Unified settings object chứa all configs
     
     Usage:
         from src.core.config import get_settings
@@ -61,20 +61,20 @@ class Settings:
         # Check LLM keys
         if not self.llm.has_any_key:
             warnings.append(
-                "  Không có LLM API key! Set OPENAI_API_KEY, "
-                "ANTHROPIC_API_KEY, hoặc GOOGLE_API_KEY"
+                "  No LLM API key! Set OPENAI_API_KEY, "
+                "ANTHROPIC_API_KEY, or GOOGLE_API_KEY"
             )
         
         # Check JWT secret in production
         if self.app.is_production and not self.security.JWT_SECRET:
             warnings.append(
-                "  JWT_SECRET không được set trong production!"
+                "  JWT_SECRET not được set in production!"
             )
         
         # Check debug in production
         if self.app.is_production and self.app.DEBUG:
             warnings.append(
-                "  DEBUG=True trong production! Nên set DEBUG=False"
+                "  DEBUG=True in production! Nên set DEBUG=False"
             )
         
         return warnings

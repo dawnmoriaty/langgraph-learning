@@ -1,4 +1,4 @@
-Chat Service - Business logic cho chat
+Chat Service - Business logic for chat
 from typing import Dict, Any
 import uuid
 import logging
@@ -9,12 +9,12 @@ from .schemas import ChatRequest, ChatResponse
 logger = logging.getLogger(__name__)
 
 class ChatService:
-    Service layer cho chat functionality
+    Service layer for functionality
     
-    Tách biệt business logic khỏi HTTP layer
+    Separate business logic khỏi HTTP layer
     
     async def chat(self, request: ChatRequest) -> ChatResponse:
-        Process chat request với agent
+        Process chat request with agent
         
         Args:
             request: Chat request
@@ -25,7 +25,7 @@ class ChatService:
         Raises:
             AgentError: Nếu agent execution fails
             LLMError: Nếu LLM provider fails
-        # Generate conversation ID nếu chưa có
+        # Generate conversation ID if chưa có
         conversation_id = request.conversation_id or f"conv_{uuid.uuid4().hex[:8]}"
         
         logger.info(
@@ -37,7 +37,7 @@ class ChatService:
         )
         
         try:
-            # TODO: Integrate với agent sau khi refactor agent/
+            # TODO: Integrate with agent sau when refactor agent/
             # Hiện tại placeholder
             
             # Placeholder response
@@ -70,11 +70,11 @@ class ChatService:
             )
     
     async def list_tools(self) -> Dict[str, Any]:
-        List tất cả tools mà agent có thể dùng
+        List all tools mà agent có thể dùng
         
         Returns:
-            Dict với tools info
-        # TODO: Get từ agent sau khi refactor
+            Dict with tools info
+        # TODO: Get từ agent sau when refactor
         # Placeholder
         tools = [
             {

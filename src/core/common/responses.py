@@ -44,7 +44,7 @@ class APIResponse(BaseModel, Generic[T]):
         }
     success: bool = Field(..., description="Request success status")
     data: Optional[T] = Field(None, description="Response data")
-    error: Optional[ErrorDetail] = Field(None, description="Error details nếu failed")
+    error: Optional[ErrorDetail] = Field(None, description="Error details if failed")
     meta: Optional[Dict[str, Any]] = Field(None, description="Metadata (pagination, etc)")
     
     class Config:
@@ -70,7 +70,7 @@ def success_response(
         meta: Optional metadata
         
     Returns:
-        Dict với envelope format
+        Dict with envelope format
         
     Examples:
         >>> success_response({"id": 1})
@@ -102,7 +102,7 @@ def error_response(
         meta: Optional metadata
         
     Returns:
-        Dict với envelope format
+        Dict with envelope format
         
     Examples:
         >>> error_response(
@@ -122,7 +122,7 @@ def error_response(
     }
 
 class PaginatedResponse(BaseModel, Generic[T]):
-    Response với pagination
+    Response with pagination
     
     Examples:
         {
@@ -156,14 +156,14 @@ def paginated_response(
     Tạo paginated response
     
     Args:
-        items: List items cho page hiện tại
+        items: List items for page hiện tại
         total: Tổng số items
         page: Current page number (1-indexed)
         limit: Items per page
         **extra_meta: Additional metadata
         
     Returns:
-        Dict với pagination envelope
+        Dict with pagination envelope
         
     Examples:
         >>> items = [{"id": 1}, {"id": 2}]

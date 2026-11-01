@@ -6,7 +6,7 @@ class ChatRequest(BaseModel):
     message: str = Field(..., description="Tin nhắn từ user", min_length=1)
     conversation_id: Optional[str] = Field(
         None,
-        description="ID của conversation (để duy trì context)"
+        description="ID of conversation (để duy trì context)"
     )
     
     model_config = {
@@ -23,7 +23,7 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     """Response từ agent"""
     response: str = Field(..., description="Câu trả lời từ agent")
-    conversation_id: str = Field(..., description="ID của conversation")
+    conversation_id: str = Field(..., description="ID of conversation")
     metadata: Optional[Dict[str, Any]] = Field(
         None,
         description="Thông tin bổ sung"
